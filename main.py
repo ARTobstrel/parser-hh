@@ -2,11 +2,13 @@ import requests
 import csv
 from bs4 import BeautifulSoup as bs
 
+#Напишите любую вакансию
+vacancy = 'python'
 
 headers = {'accept': '*/*',
            'user-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:71.0) Gecko/20100101 Firefox/71.0'}
 
-base_url = 'https://hh.ru/search/vacancy?search_period=3&area=1&text=python&page=0'
+base_url = f'https://hh.ru/search/vacancy?search_period=3&area=1&text={vacancy}к&page=0'
 
 jobs = []
 urls = []
@@ -22,7 +24,7 @@ def hh_parse(base_url, headers):
             pagination = soup.find_all('a', attrs={'data-qa': 'pager-page'})
             count = int(pagination[-1].text)
             for i in range(count):
-                url = f'https://hh.ru/search/vacancy?search_period=3&area=1&text=python&page={i}'
+                url = f'https://hh.ru/search/vacancy?search_period=3&area=1&text={vacancy}&page={i}'
                 if url not in urls:
                     urls.append(url)
         except:
